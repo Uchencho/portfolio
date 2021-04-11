@@ -52,7 +52,11 @@ class Home extends StatelessWidget {
                       Expanded(child: Text(" Alozie", style: kAlozieTextStyle))
                     ],
                   ),
-                  Text("Software craftman", style: kRoleDescription),
+                  Container(
+                      color: Colors.grey.shade800,
+                      width: 5000,
+                      margin: EdgeInsets.only(right: 30.0),
+                      child: Text(kDescription, style: kRoleDescription)),
                   SizedBox(height: 20),
                   Container(
                     width: 140,
