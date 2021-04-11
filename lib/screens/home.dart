@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:portfolio/screens/const.dart';
 
 class Home extends StatelessWidget {
@@ -96,16 +97,23 @@ class Home extends StatelessWidget {
                     children: [
                       CustomIcon(
                           ic: FontAwesomeIcons.twitter,
-                          hoverColor: Colors.blue),
+                          hoverColor: Colors.blue,
+                          url: kTwitterURL),
                       CustomIcon(
-                          ic: FontAwesomeIcons.linkedin,
-                          hoverColor: Colors.blue),
+                        ic: FontAwesomeIcons.linkedin,
+                        hoverColor: Colors.blue,
+                        url: kLinkedInURl,
+                      ),
                       CustomIcon(
-                          ic: FontAwesomeIcons.github,
-                          hoverColor: Colors.black),
+                        ic: FontAwesomeIcons.github,
+                        hoverColor: Colors.black,
+                        url: kGithubURl,
+                      ),
                       CustomIcon(
-                          ic: FontAwesomeIcons.envelope,
-                          hoverColor: Colors.red),
+                        ic: FontAwesomeIcons.envelope,
+                        hoverColor: Colors.red,
+                        url: kEmailURL,
+                      ),
                     ],
                   ),
                 )
@@ -119,17 +127,24 @@ class Home extends StatelessWidget {
 }
 
 class CustomIcon extends StatelessWidget {
-  CustomIcon({@required this.ic, @required this.hoverColor});
+  CustomIcon(
+      {@required this.ic, @required this.hoverColor, @required this.url});
   final IconData ic;
   final Color hoverColor;
+  final String url;
 
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      onPressed: () {},
+      onPressed: () {
+        launchURL(this.url);
+      },
       hoverColor: this.hoverColor,
       splashRadius: 20.0,
       icon: Icon(this.ic, color: Colors.white, size: kIconSize),
     );
   }
 }
+
+void launchURL(String url) async =>
+    await canLaunch(url) ? await launch(url) : throw 'Could not launch $url';

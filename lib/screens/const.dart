@@ -18,6 +18,11 @@ const kRoleDescription = TextStyle(
     fontWeight: FontWeight.w300,
     fontFamily: "OpenSans");
 
+const kLinkedInURl = "https://linkedin.com/in/alozie-uche";
+const kGithubURl = "https://github.com/Uchencho";
+const kTwitterURL = "https://twitter.com/Uchencho_";
+const kEmailURL = "mailto:aloziekelechi17@gmail.com";
+
 const kIconSize = 25.0;
 const kFooterIconTextSize = 15.0;
 const kDescription =
