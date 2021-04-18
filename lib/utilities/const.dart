@@ -13,7 +13,7 @@ const kDescription =
 const kSpaceBetweenProjects = 20.0;
 const kMyProjectTextStyle = TextStyle(color: Colors.yellow, fontSize: 70);
 
-const kBaseURL = 'https://uchencho.pythonanywhere.com/api/project';
+const kBaseURL = 'uchencho.pythonanywhere.com';
 
 Container getAppBar(double _width) {
   return Container(

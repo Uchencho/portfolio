@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:portfolio/services/network.dart';
 import 'package:portfolio/utilities/const.dart';
 
 class ReuseableCard extends StatelessWidget {
@@ -16,7 +17,10 @@ class ReuseableCard extends StatelessWidget {
           ),
           SizedBox(height: 10.0),
           MaterialButton(
-            onPressed: () {},
+            onPressed: () async {
+              print('Button pressed');
+              await Portfolio().getProjectReponse();
+            },
             hoverColor: Colors.grey.withOpacity(0.5),
             color: Colors.black,
             child: Container(
