@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:portfolio/screens/project.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:portfolio/utilities/const.dart';
 
@@ -45,16 +44,12 @@ class Home extends StatelessWidget {
           margin: EdgeInsets.only(top: 25.0),
           child: TextButton(
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(
-                builder: (context) {
-                  return ProjectScreen();
-                },
-              ));
+              Navigator.pushNamed(context, '/project');
             },
             child: Icon(
               FontAwesomeIcons.bars,
               color: Colors.white,
-              size: 30.0,
+              size: getIconSize(_width),
             ),
           ),
         ),
@@ -76,11 +71,13 @@ class Home extends StatelessWidget {
                         softWrap: true,
                         maxLines: 3,
                         text: TextSpan(
-                            text: "Uchenna",
-                            style: kUcheTextStyle,
-                            children: <TextSpan>[
-                              TextSpan(text: " Alozie", style: kAlozieTextStyle)
-                            ]),
+                          text: "Uchenna",
+                          style: getUchestyle(_width),
+                          children: <TextSpan>[
+                            TextSpan(
+                                text: " Alozie", style: getAloziestyle(_width))
+                          ],
+                        ),
                       ),
                     ),
                   ],
@@ -90,7 +87,7 @@ class Home extends StatelessWidget {
                   width: 5000,
                   child: Text(
                     kDescription,
-                    style: kRoleDescription,
+                    style: getRoleDescriptonstyle(_width),
                     textAlign:
                         _width > 700 ? TextAlign.start : TextAlign.center,
                   ),
@@ -103,23 +100,28 @@ class Home extends StatelessWidget {
                         : MainAxisAlignment.center,
                     children: [
                       CustomIcon(
-                          ic: FontAwesomeIcons.twitter,
-                          hoverColor: Colors.blue,
-                          url: kTwitterURL),
+                        ic: FontAwesomeIcons.twitter,
+                        hoverColor: Colors.blue,
+                        url: kTwitterURL,
+                        screenSize: _width,
+                      ),
                       CustomIcon(
                         ic: FontAwesomeIcons.linkedin,
                         hoverColor: Colors.blue,
                         url: kLinkedInURl,
+                        screenSize: _width,
                       ),
                       CustomIcon(
                         ic: FontAwesomeIcons.github,
                         hoverColor: Colors.black,
                         url: kGithubURl,
+                        screenSize: _width,
                       ),
                       CustomIcon(
                         ic: FontAwesomeIcons.envelope,
                         hoverColor: Colors.red,
                         url: kEmailURL,
+                        screenSize: _width,
                       ),
                     ],
                   ),
@@ -135,10 +137,14 @@ class Home extends StatelessWidget {
 
 class CustomIcon extends StatelessWidget {
   CustomIcon(
-      {@required this.ic, @required this.hoverColor, @required this.url});
+      {@required this.ic,
+      @required this.hoverColor,
+      @required this.url,
+      @required this.screenSize});
   final IconData ic;
   final Color hoverColor;
   final String url;
+  final double screenSize;
 
   @override
   Widget build(BuildContext context) {
@@ -148,7 +154,7 @@ class CustomIcon extends StatelessWidget {
       },
       hoverColor: this.hoverColor,
       splashRadius: 20.0,
-      icon: Icon(this.ic, color: Colors.white, size: kIconSize),
+      icon: Icon(this.ic, color: Colors.white, size: getIconSize(screenSize)),
     );
   }
 }

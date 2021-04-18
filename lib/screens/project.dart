@@ -21,7 +21,16 @@ class ProjectScreen extends StatelessWidget {
                 textAlign: TextAlign.start,
               ),
               SizedBox(height: 20.0),
-              _width > 700 ? RowWidget() : ColumnWidget()
+              Flex(
+                direction: _width > 700 ? Axis.horizontal : Axis.vertical,
+                children: [
+                  ReuseableCard(),
+                  SizedBox(height: kSpaceBetweenProjects),
+                  ReuseableCard(),
+                  SizedBox(height: kSpaceBetweenProjects),
+                  ReuseableCard(),
+                ],
+              )
             ],
           ),
         ),
