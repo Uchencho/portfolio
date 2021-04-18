@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:portfolio/screens/project.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:portfolio/screens/const.dart';
+import 'package:portfolio/utilities/const.dart';
 
 class Home extends StatelessWidget {
   @override
@@ -43,7 +44,13 @@ class Home extends StatelessWidget {
         floatingActionButton: Container(
           margin: EdgeInsets.only(top: 25.0),
           child: TextButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(
+                builder: (context) {
+                  return ProjectScreen();
+                },
+              ));
+            },
             child: Icon(
               FontAwesomeIcons.bars,
               color: Colors.white,

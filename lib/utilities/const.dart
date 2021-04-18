@@ -27,3 +27,6 @@ const kIconSize = 25.0;
 const kFooterIconTextSize = 15.0;
 const kDescription =
     "  Software craftman, former beans cooker, work with the best, learning from the best, becoming the best";
+
+const kSpaceBetweenProjects = 20.0;
+const kMyProjectTextStyle = TextStyle(color: Colors.yellow, fontSize: 70);
