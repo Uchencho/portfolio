@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 const kLinkedInURl = "https://linkedin.com/in/alozie-uche";
 const kGithubURl = "https://github.com/Uchencho";
@@ -11,6 +12,22 @@ const kDescription =
 
 const kSpaceBetweenProjects = 20.0;
 const kMyProjectTextStyle = TextStyle(color: Colors.yellow, fontSize: 70);
+
+const kBaseURL = 'https://uchencho.pythonanywhere.com/api/project';
+
+Container getAppBar(double _width) {
+  return Container(
+    margin: EdgeInsets.only(top: 25.0),
+    child: TextButton(
+      onPressed: () {},
+      child: Icon(
+        FontAwesomeIcons.bars,
+        color: Colors.white,
+        size: getIconSize(_width),
+      ),
+    ),
+  );
+}
 
 TextStyle getAloziestyle(double screenSize) {
   double fsize;
@@ -70,4 +87,34 @@ double getIconSize(double screenSize) {
   } else {
     return 19;
   }
+}
+
+int getCrossAxisCount(double screenSize) {
+  if (screenSize >= 1350) {
+    return 4;
+  } else if (screenSize < 1350 && screenSize > 1050) {
+    return 3;
+  } else if (screenSize <= 1050 && screenSize > 700) {
+    return 2;
+  } else {
+    return 1;
+  }
+}
+
+TextStyle getProjectDescriptionStyle(double screenSize) {
+  double fsize;
+
+  if (screenSize >= 700) {
+    fsize = 90;
+  } else if (screenSize > 500 && screenSize < 700) {
+    fsize = 75;
+  } else {
+    fsize = 55;
+  }
+
+  return TextStyle(
+      color: Colors.white,
+      fontSize: fsize,
+      fontWeight: FontWeight.w300,
+      fontFamily: "OpenSans");
 }
