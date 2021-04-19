@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio/screens/home.dart';
+import 'package:portfolio/screens/project.dart';
 
 void main() {
   runApp(MyApp());
@@ -10,8 +11,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Portfolio',
       debugShowCheckedModeBanner: false,
+      initialRoute: '/',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -24,7 +26,10 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: Home(),
+      routes: {
+        '/': (context) => Home(),
+        '/project': (context) => ProjectScreen(),
+      },
     );
   }
 }
