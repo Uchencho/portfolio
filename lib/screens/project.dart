@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:portfolio/services/network.dart';
+import 'package:portfolio/services/util.dart';
 import 'package:portfolio/utilities/const.dart';
 
 class ReuseableCard extends StatelessWidget {
+  ReuseableCard(
+      {this.projectName, this.gitLink, this.projectLink, this.imageURL});
+  final String projectName;
+  final String gitLink;
+  final String projectLink;
+  final String imageURL;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -11,15 +20,14 @@ class ReuseableCard extends StatelessWidget {
       margin: EdgeInsets.all(20.0),
       child: Column(
         children: [
-          Image(
-            fit: BoxFit.contain,
-            image: AssetImage('images/project4.jpg'),
+          Expanded(
+            child:
+                Image(fit: BoxFit.contain, image: NetworkImage(this.imageURL)),
           ),
           SizedBox(height: 10.0),
           MaterialButton(
-            onPressed: () async {
-              print('Button pressed');
-              await Portfolio().getProjectReponse();
+            onPressed: () {
+              launchURL(this.projectLink);
             },
             hoverColor: Colors.grey.withOpacity(0.5),
             color: Colors.black,
@@ -34,7 +42,7 @@ class ReuseableCard extends StatelessWidget {
                     size: 17.0,
                   ),
                   SizedBox(width: 16.0),
-                  Text('Name of project',
+                  Text(projectName,
                       style: TextStyle(
                           color: Colors.white, fontSize: kFooterIconTextSize)),
                 ],
@@ -43,7 +51,9 @@ class ReuseableCard extends StatelessWidget {
           ),
           SizedBox(height: 10.0),
           MaterialButton(
-            onPressed: () {},
+            onPressed: () {
+              launchURL(this.gitLink);
+            },
             hoverColor: Colors.grey.withOpacity(0.5),
             color: Colors.white,
             child: Container(
@@ -65,38 +75,83 @@ class ReuseableCard extends StatelessWidget {
   }
 }
 
-class ProjectScreen extends StatelessWidget {
+class ProjectScreen extends StatefulWidget {
+  @override
+  _ProjectScreenState createState() => _ProjectScreenState();
+}
+
+class _ProjectScreenState extends State<ProjectScreen> {
+  ProjectResponse r;
+
+  @override
+  void initState() {
+    super.initState();
+    getProjects();
+  }
+
+  void getProjects() async {
+    var resp = await Portfolio().getProjectReponse();
+    setState(() {
+      r = resp;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     var _width = MediaQuery.of(context).size.width;
-    return Container(
-      decoration: BoxDecoration(color: Colors.grey),
-      child: Scaffold(
-        floatingActionButton: getAppBar(_width),
-        floatingActionButtonLocation: FloatingActionButtonLocation.miniEndTop,
-        backgroundColor: Colors.transparent,
-        body: Container(
-          margin: EdgeInsets.only(top: 50.0),
-          child: Column(
-            children: [
-              Text("Recent Projects",
-                  style: getProjectDescriptionStyle(_width)),
-              Expanded(
-                child: GridView(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: getCrossAxisCount(_width)),
-                  children: <Widget>[
-                    ReuseableCard(),
-                    ReuseableCard(),
-                    // ReuseableCard(),
-                    // ReuseableCard(),
-                  ],
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
+    return getUI(r, _width);
+  }
+}
+
+Widget getUI(ProjectResponse r, double screenSize) {
+  while (r == null) {
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: Center(
+          child: SpinKitCubeGrid(
+        color: Colors.white,
+        size: 70.0,
+      )),
     );
   }
+  return loadedScreen(r, screenSize);
+}
+
+Container loadedScreen(ProjectResponse r, double _width) {
+  return Container(
+    decoration: BoxDecoration(color: Colors.grey),
+    child: Scaffold(
+      floatingActionButton: getAppBar(_width),
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniEndTop,
+      backgroundColor: Colors.transparent,
+      body: Container(
+        margin: EdgeInsets.only(top: 50.0),
+        child: Column(
+          children: [
+            Text("Recent Projects", style: getProjectDescriptionStyle(_width)),
+            Expanded(
+              child: GridView(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: getCrossAxisCount(_width)),
+                  children: getCards(r)),
+            )
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+List<ReuseableCard> getCards(ProjectResponse r) {
+  List<ReuseableCard> result = [];
+
+  for (var i = 0; i < r.data.length; i++) {
+    result.add(ReuseableCard(
+      gitLink: r.data[i].gitLink,
+      projectName: r.data[i].nameOfProj,
+      projectLink: r.data[i].blogLink,
+      imageURL: 'https://' + kBaseURL + r.data[i].image,
+    ));
+  }
+  return result;
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 const kLinkedInURl = "https://linkedin.com/in/alozie-uche";
 const kGithubURl = "https://github.com/Uchencho";
@@ -118,3 +119,6 @@ TextStyle getProjectDescriptionStyle(double screenSize) {
       fontWeight: FontWeight.w300,
       fontFamily: "OpenSans");
 }
+
+void launchURL(String url) async =>
+    await canLaunch(url) ? await launch(url) : throw 'Could not launch $url';
