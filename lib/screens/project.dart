@@ -99,11 +99,11 @@ class _ProjectScreenState extends State<ProjectScreen> {
   @override
   Widget build(BuildContext context) {
     var _width = MediaQuery.of(context).size.width;
-    return getUI(r, _width);
+    return getUI(r, _width, context);
   }
 }
 
-Widget getUI(ProjectResponse r, double screenSize) {
+Widget getUI(ProjectResponse r, double screenSize, BuildContext context) {
   while (r == null) {
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -114,14 +114,14 @@ Widget getUI(ProjectResponse r, double screenSize) {
       )),
     );
   }
-  return loadedScreen(r, screenSize);
+  return loadedScreen(r, screenSize, context);
 }
 
-Container loadedScreen(ProjectResponse r, double _width) {
+Container loadedScreen(ProjectResponse r, double _width, BuildContext context) {
   return Container(
     decoration: BoxDecoration(color: Colors.grey),
     child: Scaffold(
-      floatingActionButton: getAppBar(_width),
+      floatingActionButton: getDropDown(context, _width, '/project'),
       floatingActionButtonLocation: FloatingActionButtonLocation.miniEndTop,
       backgroundColor: Colors.transparent,
       body: Container(

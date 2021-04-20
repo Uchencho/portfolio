@@ -122,3 +122,28 @@ TextStyle getProjectDescriptionStyle(double screenSize) {
 
 void launchURL(String url) async =>
     await canLaunch(url) ? await launch(url) : throw 'Could not launch $url';
+
+Container getDropDown(
+    BuildContext context, double _width, String currentScreen) {
+  return Container(
+    margin: EdgeInsets.only(right: 20.0),
+    child: DropdownButton<String>(
+      items: [
+        DropdownMenuItem(child: Text('Home'), value: '/'),
+        DropdownMenuItem(child: Text('Projects'), value: '/project'),
+        DropdownMenuItem(child: Text('About'), value: '/project'),
+      ],
+      onChanged: (value) {
+        if (value != currentScreen) {
+          Navigator.pushNamed(context, value);
+        }
+      },
+      icon: Icon(
+        FontAwesomeIcons.bars,
+        color: Colors.white,
+        size: getIconSize(_width),
+      ),
+      underline: Container(),
+    ),
+  );
+}

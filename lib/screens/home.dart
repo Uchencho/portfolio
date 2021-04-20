@@ -42,16 +42,7 @@ class Home extends StatelessWidget {
         ),
         floatingActionButton: Container(
           margin: EdgeInsets.only(top: 25.0),
-          child: TextButton(
-            onPressed: () {
-              Navigator.pushNamed(context, '/project');
-            },
-            child: Icon(
-              FontAwesomeIcons.bars,
-              color: Colors.white,
-              size: getIconSize(_width),
-            ),
-          ),
+          child: getDropDown(context, _width, '/'),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.miniEndTop,
         body: Container(
