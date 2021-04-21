@@ -6,6 +6,7 @@ const kLinkedInURl = "https://linkedin.com/in/alozie-uche";
 const kGithubURl = "https://github.com/Uchencho";
 const kTwitterURL = "https://twitter.com/Uchencho_";
 const kEmailURL = "mailto:aloziekelechi17@gmail.com";
+const kCorsBaseURL = "https://cors.bridged.cc/";
 
 const kFooterIconTextSize = 15.0;
 const kDescription =

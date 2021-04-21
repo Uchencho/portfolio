@@ -21,8 +21,8 @@ class ReuseableCard extends StatelessWidget {
       child: Column(
         children: [
           Expanded(
-            child:
-                Image(fit: BoxFit.contain, image: NetworkImage(this.imageURL)),
+            child: Image.network(kCorsBaseURL + this.imageURL,
+                fit: BoxFit.contain),
           ),
           SizedBox(height: 10.0),
           MaterialButton(
@@ -150,7 +150,7 @@ List<ReuseableCard> getCards(ProjectResponse r) {
       gitLink: r.data[i].gitLink,
       projectName: r.data[i].nameOfProj,
       projectLink: r.data[i].blogLink,
-      imageURL: 'https://' + kBaseURL + r.data[i].image,
+      imageURL: kBaseURL + r.data[i].image,
     ));
   }
   return result;
