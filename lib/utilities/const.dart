@@ -132,7 +132,7 @@ Container getDropDown(
       items: [
         DropdownMenuItem(child: Text('Home'), value: '/'),
         DropdownMenuItem(child: Text('Projects'), value: '/project'),
-        DropdownMenuItem(child: Text('About'), value: '/project'),
+        DropdownMenuItem(child: Text('About'), value: '/about'),
       ],
       onChanged: (value) {
         if (value != currentScreen) {

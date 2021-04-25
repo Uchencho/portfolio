@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -21,15 +22,20 @@ class ReuseableCard extends StatelessWidget {
       child: Column(
         children: [
           Expanded(
-            child: Image.network(kCorsBaseURL + this.imageURL,
-                fit: BoxFit.contain),
+            child: CachedNetworkImage(
+              fit: BoxFit.contain,
+              imageUrl: kCorsBaseURL + this.imageURL,
+              progressIndicatorBuilder: (context, url, downloadProgress) =>
+                  CircularProgressIndicator(value: downloadProgress.progress),
+              errorWidget: (context, url, error) => Icon(Icons.error),
+            ),
           ),
           SizedBox(height: 10.0),
           MaterialButton(
             onPressed: () {
               launchURL(this.projectLink);
             },
-            hoverColor: Colors.grey.withOpacity(0.5),
+            hoverColor: Colors.yellow.withOpacity(0.5),
             color: Colors.black,
             child: Container(
               padding: EdgeInsets.only(left: 10.0),
@@ -121,7 +127,9 @@ Container loadedScreen(ProjectResponse r, double _width, BuildContext context) {
   return Container(
     decoration: BoxDecoration(color: Colors.grey),
     child: Scaffold(
-      floatingActionButton: getDropDown(context, _width, '/project'),
+      floatingActionButton: Container(
+          child: getDropDown(context, _width, '/project'),
+          margin: EdgeInsets.only(top: 25.0)),
       floatingActionButtonLocation: FloatingActionButtonLocation.miniEndTop,
       backgroundColor: Colors.transparent,
       body: Container(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:portfolio/screens/about.dart';
 import 'package:portfolio/screens/home.dart';
 import 'package:portfolio/screens/project.dart';
 
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => Home(),
         '/project': (context) => ProjectScreen(),
+        '/about': (context) => AboutScreen(),
       },
     );
   }
