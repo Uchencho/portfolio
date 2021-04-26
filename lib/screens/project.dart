@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -21,15 +22,20 @@ class ReuseableCard extends StatelessWidget {
       child: Column(
         children: [
           Expanded(
-            child:
-                Image(fit: BoxFit.contain, image: NetworkImage(this.imageURL)),
+            child: CachedNetworkImage(
+              fit: BoxFit.contain,
+              imageUrl: kCorsBaseURL + this.imageURL,
+              progressIndicatorBuilder: (context, url, downloadProgress) =>
+                  CircularProgressIndicator(value: downloadProgress.progress),
+              errorWidget: (context, url, error) => Icon(Icons.error),
+            ),
           ),
           SizedBox(height: 10.0),
           MaterialButton(
             onPressed: () {
               launchURL(this.projectLink);
             },
-            hoverColor: Colors.grey.withOpacity(0.5),
+            hoverColor: Colors.yellow.withOpacity(0.5),
             color: Colors.black,
             child: Container(
               padding: EdgeInsets.only(left: 10.0),
@@ -99,11 +105,11 @@ class _ProjectScreenState extends State<ProjectScreen> {
   @override
   Widget build(BuildContext context) {
     var _width = MediaQuery.of(context).size.width;
-    return getUI(r, _width);
+    return getUI(r, _width, context);
   }
 }
 
-Widget getUI(ProjectResponse r, double screenSize) {
+Widget getUI(ProjectResponse r, double screenSize, BuildContext context) {
   while (r == null) {
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -114,14 +120,16 @@ Widget getUI(ProjectResponse r, double screenSize) {
       )),
     );
   }
-  return loadedScreen(r, screenSize);
+  return loadedScreen(r, screenSize, context);
 }
 
-Container loadedScreen(ProjectResponse r, double _width) {
+Container loadedScreen(ProjectResponse r, double _width, BuildContext context) {
   return Container(
     decoration: BoxDecoration(color: Colors.grey),
     child: Scaffold(
-      floatingActionButton: getAppBar(_width),
+      floatingActionButton: Container(
+          child: getDropDown(context, _width, '/project'),
+          margin: EdgeInsets.only(top: 25.0)),
       floatingActionButtonLocation: FloatingActionButtonLocation.miniEndTop,
       backgroundColor: Colors.transparent,
       body: Container(
@@ -150,7 +158,7 @@ List<ReuseableCard> getCards(ProjectResponse r) {
       gitLink: r.data[i].gitLink,
       projectName: r.data[i].nameOfProj,
       projectLink: r.data[i].blogLink,
-      imageURL: 'https://' + kBaseURL + r.data[i].image,
+      imageURL: kBaseURL + r.data[i].image,
     ));
   }
   return result;
