@@ -22,7 +22,16 @@ class AboutScreen extends StatelessWidget {
               Expanded(
                 child: _TimelineActivity(steps: generateData()),
               ),
-              const SizedBox(height: 8),
+              // const SizedBox(height: 8),
+              Container(
+                margin: EdgeInsets.all(1.0),
+                height: 40.0,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: getCurrentSkills(),
+                ),
+              )
             ],
           ),
         ),

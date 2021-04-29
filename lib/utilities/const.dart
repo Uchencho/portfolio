@@ -133,6 +133,7 @@ Container getDropDown(
         DropdownMenuItem(child: Text('Home'), value: '/'),
         DropdownMenuItem(child: Text('Projects'), value: '/project'),
         DropdownMenuItem(child: Text('About'), value: '/about'),
+        DropdownMenuItem(child: Text('Skills'), value: '/skill'),
       ],
       onChanged: (value) {
         if (value != currentScreen) {
@@ -147,4 +148,45 @@ Container getDropDown(
       underline: Container(),
     ),
   );
+}
+
+List<Widget> getCurrentSkills() {
+  EdgeInsets pad =
+      EdgeInsets.only(left: 8.0, right: 8.0, top: 1.0, bottom: 1.0);
+  double h = 35.0;
+  List<Widget> result = [
+    Padding(
+      padding: pad,
+      child: Text("Current skills >>>", style: TextStyle(color: Colors.white)),
+    ),
+    Padding(
+        padding: pad,
+        child: Image(image: AssetImage("images/icons/golang.jpeg"), height: h)),
+    Padding(
+        padding: pad,
+        child: Image(
+            image: AssetImage("images/icons/python_logo.png"), height: h)),
+    Padding(
+        padding: pad,
+        child: Image(
+            image: AssetImage("images/icons/aws_cloudformation.png"),
+            height: h)),
+    Padding(
+        padding: pad,
+        child:
+            Image(image: AssetImage("images/icons/aws_dynamo.png"), height: h)),
+    Padding(
+        padding: pad,
+        child:
+            Image(image: AssetImage("images/icons/aws_lambda.png"), height: h)),
+    Padding(
+        padding: pad,
+        child: Image(
+            image: AssetImage("images/icons/heroku_icon.png"), height: h)),
+    Padding(
+        padding: pad,
+        child: Image(
+            image: AssetImage("images/icons/flutter_icon.png"), height: h)),
+  ];
+  return result;
 }
